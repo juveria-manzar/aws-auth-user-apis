@@ -12,7 +12,13 @@ module.exports.myProfile = (r, cb) => {
 
 function myProfile(id) {
   return User.findById(id)
-    .then(user => !user ? Promise.reject('User not found.') : user)
+    .then(user => !user ? Promise.reject('User not found.') : {
+        statusCode: 200,
+        body: {
+            name:user.name,
+            email:user.email,
+        }
+      })
     .catch(err => Promise.reject(new Error(err)));
 }
 
@@ -26,7 +32,12 @@ module.exports.allUsers =(r,cb)=>{
 
 function allUsers() {
     return User.find()
-      .then(users => !users ? Promise.reject('No Users Exist') : users)
+      .then(users => !users ? Promise.reject('No Users Exist') : users.map(user=>{
+          return{
+            name:user.name,
+            email:user.email
+          }
+      }))
       .catch(err => Promise.reject(new Error(err)));
 }
 
@@ -41,7 +52,10 @@ module.exports.aUser = (event,context,callback)=>{
 
 function updateUser(id,body){
     return User.findByIdAndUpdate(id,JSON.parse(body))
-    .then(user => !user ? Promise.reject('You are not authorized to update the user details.') : user)
+    .then(user => !user ? Promise.reject('You are not authorized to update the user details.') : {
+        statusCode: 201,
+        message: "Data has been Updated",
+      })
     .catch(err => Promise.reject(new Error(err)));
 }
 module.exports.updateUser=(event,context,callback)=>{
