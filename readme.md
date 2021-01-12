@@ -3,7 +3,7 @@
     - AWS Lambda Account
     - MongoDB Atlas Account
     - Node.js/npm installed
-### steps for implementation
+### Steps for implementation
     - Setting up AWS
         - in the AWS management Console, click on IAM
         - click on users tab
@@ -38,4 +38,14 @@
           - define the handlers in the handler.js file or you can create directories on your own requirements and pass coorect path of handlers in the serverless.yml
 
           - to deploy use the command: sls deploy or serverless deploy.
-              
+
+##  End points generated
+    - 6 endpoints generated, just as defined in the serverless.yml. /myProfile /updateUser cannot be accessed without authkey
+    POST - https://2dwvrpfkm5.execute-api.us-east-1.amazonaws.com/dev/auth/login
+    POST - https://2dwvrpfkm5.execute-api.us-east-1.amazonaws.com/dev/auth/register
+    GET - https://2dwvrpfkm5.execute-api.us-east-1.amazonaws.com/dev/user/myprofile
+    PUT - https://2dwvrpfkm5.execute-api.us-east-1.amazonaws.com/dev/user/updateUser
+    GET - https://2dwvrpfkm5.execute-api.us-east-1.amazonaws.com/dev/user/allUsers
+    GET - https://2dwvrpfkm5.execute-api.us-east-1.amazonaws.com/dev/user/aUser/{id}
+
+                  

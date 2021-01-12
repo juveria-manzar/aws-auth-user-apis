@@ -2,10 +2,10 @@ const db = require('../database');
 const User = require('./User');
 const { success, errResponse } = require('../authentication/AuthenticationHelpers');
 
-module.exports.myProfile = (r, cb) => {
-  cb.callbackWaitsForEmptyEventLoop = false;
+module.exports.myProfile = (event,context,callback) => {
+  context.callbackWaitsForEmptyEventLoop = false;
   return db()
-    .then(() => myProfile(r.requestContext.authorizer.principalId))
+    .then(() => myProfile(event.requestContext.authorizer.principalId))
     .then(res => success(res))
     .catch(err => errResponse(err));
 };
@@ -22,8 +22,8 @@ function myProfile(id) {
     .catch(err => Promise.reject(new Error(err)));
 }
 
-module.exports.allUsers =(r,cb)=>{
-    cb.callbackWaitsForEmptyEventLoop = false;
+module.exports.allUsers =(event,context,callback)=>{
+    context.callbackWaitsForEmptyEventLoop = false;
     return db()
     .then(() => allUsers())
     .then(res => success(res))
